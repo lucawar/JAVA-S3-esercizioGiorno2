@@ -19,7 +19,6 @@ public class Evento {
 	private LocalDate dataEvento;
 	private String descrizione;
 	private int numeroMassimo;
-
 	private EventType tipoEvento;
 
 	public Evento() {

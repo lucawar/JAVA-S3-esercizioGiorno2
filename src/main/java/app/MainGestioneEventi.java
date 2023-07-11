@@ -24,14 +24,17 @@ public class MainGestioneEventi {
 		Evento evento4 = new Evento("Addio al celibato", "2022-08-25", "festa per Luca", EventType.PRIVATO, 60);
 		EventoDAO sd = new EventoDAO(em);
 
+		// SALVO EVENTI
 		sd.save(evento1);
 		sd.save(evento2);
 		sd.save(evento3);
 		sd.save(evento4);
 
+		// CERCO EVENTI NEL DATEBASE
 		Evento cercaFromDB = sd.findById(UUID.fromString("a0c14150-ec2f-4faf-930a-79bc3da3692c"));
 		System.out.println(cercaFromDB);
 
+		// DELETE
 		sd.findByIdAndDelete(UUID.fromString("69f9e981-7230-4f13-990b-e577a9ea8268"));
 
 		em.close();
