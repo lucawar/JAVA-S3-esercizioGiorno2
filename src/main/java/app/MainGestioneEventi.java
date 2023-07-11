@@ -34,7 +34,7 @@ public class MainGestioneEventi {
 		Evento cercaFromDB = sd.findById(UUID.fromString("a0c14150-ec2f-4faf-930a-79bc3da3692c"));
 		System.out.println(cercaFromDB);
 
-		// DELETE
+		// CANCELLO EVENTI
 		sd.findByIdAndDelete(UUID.fromString("69f9e981-7230-4f13-990b-e577a9ea8268"));
 
 		em.close();

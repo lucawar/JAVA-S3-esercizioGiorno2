@@ -21,7 +21,7 @@ public class EventoDAO {
 
 		t.commit();
 
-		System.out.println("Studente salvato correttamente");
+		System.out.println("Evento salvato correttamente");
 	}
 
 	public Evento findById(UUID id) {
