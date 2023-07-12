@@ -1,13 +1,19 @@
 package app;
 
-import java.util.UUID;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import entities.EventType;
 import entities.Evento;
 import entities.EventoDAO;
+import entities.GenereType;
+import entities.Location;
+import entities.LocationDAO;
+import entities.Partecipazione;
+import entities.PartecipazioneDAO;
+import entities.PartecipazioneType;
+import entities.Persona;
+import entities.PersonaDAO;
 import util.JpaUtil;
 
 public class MainGestioneEventi {
@@ -18,24 +24,37 @@ public class MainGestioneEventi {
 		EntityManager em = emf.createEntityManager();
 		System.out.println("CIAO");
 
-		Evento evento1 = new Evento("Ricevimento", "2022-03-25", "festa di compleanno", EventType.PRIVATO, 60);
-		Evento evento2 = new Evento("Pranzo", "2022-05-25", "prenzo aziendale", EventType.PRIVATO, 300);
-		Evento evento3 = new Evento("Festa di quartiere", "2022-06-25", "matrimonio Flavio", EventType.PUBBLICO, 500);
-		Evento evento4 = new Evento("Addio al celibato", "2022-08-25", "festa per Luca", EventType.PRIVATO, 60);
+		PersonaDAO pd = new PersonaDAO(em);
+		LocationDAO lt = new LocationDAO(em);
 		EventoDAO sd = new EventoDAO(em);
+		PartecipazioneDAO pt = new PartecipazioneDAO(em);
 
-		// SALVO EVENTI
+		Persona persona1 = new Persona("Luca", "Guerra", "Luca@yahoo.it", "1992-11-05", GenereType.MASCHIO);
+		pd.save(persona1);
+
+		Location location1 = new Location("Villa Borghese", "Roma");
+		lt.save(location1);
+
+		Evento evento1 = new Evento("Ricevimento", "2022-03-25", "festa di compleanno", EventType.PRIVATO, 60);
 		sd.save(evento1);
-		sd.save(evento2);
-		sd.save(evento3);
-		sd.save(evento4);
+
+		Partecipazione ptc = new Partecipazione();
+		ptc.setPersona(persona1);
+		ptc.setEvento(evento1);
+		ptc.setStato(PartecipazioneType.CONFERMATA);
+
+		evento1.getListaPartecipazioni().add(ptc);
+
+		evento1.setLocation(location1);
+
+		pt.save(ptc);
 
 		// CERCO EVENTI NEL DATEBASE
-		Evento cercaFromDB = sd.findById(UUID.fromString("a0c14150-ec2f-4faf-930a-79bc3da3692c"));
-		System.out.println(cercaFromDB);
+		// Evento cercaFromDB = sd.findById(1);
+		// System.out.println(cercaFromDB);
 
 		// CANCELLO EVENTI
-		sd.findByIdAndDelete(UUID.fromString("69f9e981-7230-4f13-990b-e577a9ea8268"));
+		sd.findByIdAndDelete(7);
 
 		em.close();
 		emf.close();

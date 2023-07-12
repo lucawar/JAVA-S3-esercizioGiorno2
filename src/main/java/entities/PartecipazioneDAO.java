@@ -3,15 +3,15 @@ package entities;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-public class EventoDAO {
+public class PartecipazioneDAO {
 
 	private final EntityManager em;
 
-	public EventoDAO(EntityManager em) {
+	public PartecipazioneDAO(EntityManager em) {
 		this.em = em;
 	}
 
-	public void save(Evento s) {
+	public void save(Partecipazione s) {
 		EntityTransaction t = em.getTransaction();
 		t.begin();
 
@@ -19,17 +19,17 @@ public class EventoDAO {
 
 		t.commit();
 
-		System.out.println("Evento salvato correttamente");
+		System.out.println("Partecipazione salvata correttamente");
 	}
 
-	public Evento findById(long id) {
-		Evento found = em.find(Evento.class, id);
+	public Partecipazione findById(long id) {
+		Partecipazione found = em.find(Partecipazione.class, id);
 		return found;
 	}
 
 	public void findByIdAndDelete(long id) {
 
-		Evento found = em.find(Evento.class, id);
+		Partecipazione found = em.find(Partecipazione.class, id);
 		if (found != null) {
 
 			EntityTransaction t = em.getTransaction();
@@ -39,15 +39,15 @@ public class EventoDAO {
 			em.remove(found);
 
 			t.commit();
-			System.out.println("Evento eliminato correttamente");
+			System.out.println("Partecipazione eliminato correttamente");
 		} else {
-			System.out.println("Evento non trovato");
+			System.out.println("Partecipazione non trovato");
 		}
 	}
 
 	public void refresh(long id) {
-		Evento found = em.find(Evento.class, id);
-		found.setTitolo("");
+		Partecipazione found = em.find(Partecipazione.class, id);
+		found.setId(id);
 
 		System.out.println("PRE REFRESH");
 		System.out.println(found);

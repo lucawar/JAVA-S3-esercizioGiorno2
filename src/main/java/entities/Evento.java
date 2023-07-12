@@ -1,22 +1,32 @@
 package entities;
 
 import java.time.LocalDate;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "eventi")
+@Getter
+@Setter
+@NoArgsConstructor
 public class Evento {
 
 	@Id
 	@GeneratedValue
-	private UUID id;
+	private long id;
 	private String titolo;
 	private LocalDate dataEvento;
 	private String descrizione;
@@ -25,8 +35,11 @@ public class Evento {
 	@Enumerated(EnumType.STRING)
 	private EventType tipoEvento;
 
-	public Evento() {
-	}
+	@OneToOne
+	private Location location;
+
+	@OneToMany(mappedBy = "evento")
+	private Set<Partecipazione> listaPartecipazioni;
 
 	public Evento(String titolo, String dataEvento, String descrizione, EventType tipoEvento, int numeroMassimo) {
 
@@ -35,50 +48,7 @@ public class Evento {
 		this.descrizione = descrizione;
 		this.tipoEvento = tipoEvento;
 		this.numeroMassimo = numeroMassimo;
-	}
-
-	public UUID getId() {
-		return id;
-	}
-
-	public String getTitolo() {
-		return titolo;
-	}
-
-	public void setTitolo(String titolo) {
-		this.titolo = titolo;
-	}
-
-	public LocalDate getDataEvento() {
-		return dataEvento;
-	}
-
-	public void setDataEvento(String dataEvento) {
-		this.dataEvento = LocalDate.parse(dataEvento);
-	}
-
-	public String getDescrizione() {
-		return descrizione;
-	}
-
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
-	}
-
-	public EventType getTipoEvento() {
-		return tipoEvento;
-	}
-
-	public void setTipoEvento(EventType tipoEvento) {
-		this.tipoEvento = tipoEvento;
-	}
-
-	public int getNumeroMassimo() {
-		return numeroMassimo;
-	}
-
-	public void setNumeroMassimo(int numeroMassimo) {
-		this.numeroMassimo = numeroMassimo;
+		this.listaPartecipazioni = new HashSet<>();
 	}
 
 	@Override
