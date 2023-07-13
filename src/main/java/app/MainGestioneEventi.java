@@ -30,13 +30,13 @@ public class MainGestioneEventi {
 		PartecipazioneDAO pt = new PartecipazioneDAO(em);
 
 		Persona persona1 = new Persona("Luca", "Guerra", "Luca@yahoo.it", "1992-11-05", GenereType.MASCHIO);
-		pd.save(persona1);
+		// pd.save(persona1);
 
 		Location location1 = new Location("Villa Borghese", "Roma");
-		lt.save(location1);
+		// lt.save(location1);
 
 		Evento evento1 = new Evento("Ricevimento", "2022-03-25", "festa di compleanno", EventType.PRIVATO, 60);
-		sd.save(evento1);
+		// sd.save(evento1);
 
 		Partecipazione ptc = new Partecipazione();
 		ptc.setPersona(persona1);
@@ -47,14 +47,14 @@ public class MainGestioneEventi {
 
 		evento1.setLocation(location1);
 
-		pt.save(ptc);
+		// pt.save(ptc);
 
-		// CERCO EVENTI NEL DATEBASE
+		// CERCO ELEMENTI NEL DATEBASE
 		// Evento cercaFromDB = sd.findById(1);
 		// System.out.println(cercaFromDB);
 
-		// CANCELLO EVENTI
-		sd.findByIdAndDelete(7);
+		// CANCELLA ELEMENTI DAL DATABASE
+		// pd.findByIdAndDelete();
 
 		em.close();
 		emf.close();
